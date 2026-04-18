@@ -1,193 +1,142 @@
+// components/Hero.js
 "use client";
-
 import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section
-      style={{
-        height: "100vh",
-        position: "relative",
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#000",
-      }}
-    >
-      {/* BASE */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "#000",
-        }}
-      />
-
-      {/* MAIN LIGHT */}
-      <div
-        style={{
-          position: "absolute",
-          width: "700px",
-          height: "400px",
-          background:
-            "radial-gradient(ellipse at center, rgba(120,80,255,0.35), transparent 70%)",
-          filter: "blur(120px)",
-          top: "60%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-      />
-
-      {/* SIDE LIGHT */}
-      <div
-        style={{
-          position: "absolute",
-          width: "600px",
-          height: "300px",
-          background:
-            "radial-gradient(circle at left, rgba(0,120,255,0.25), transparent 60%)",
-          filter: "blur(100px)",
-          top: "40%",
-          left: "20%",
-        }}
-      />
-
-      {/* BOTTOM LIGHT */}
-      <div
-        style={{
-          position: "absolute",
-          width: "80%",
-          height: "120px",
-          background:
-            "radial-gradient(ellipse at center, rgba(120,80,255,0.6), transparent 70%)",
-          bottom: "-40px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          filter: "blur(40px)",
-        }}
-      />
-
-      {/* VIGNETTE */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(circle, transparent 20%, rgba(0,0,0,0.95) 100%)",
-        }}
-      />
-
-      {/* CONTENT */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 10,
-          textAlign: "center",
-          maxWidth: "900px",
-        }}
-      >
-        {/* MICRO GLOW */}
-        <div
-          style={{
-            position: "absolute",
-            width: "300px",
-            height: "120px",
-            background: "rgba(120,120,255,0.35)",
-            filter: "blur(100px)",
-            top: "25%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: -1,
-          }}
-        />
-
-        {/* TITLE */}
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
+    <section className="hero-section" style={{
+      height: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      position: "relative",
+      overflow: "hidden",
+      background: "#000"
+    }}>
+      {/* Animated Gradient Background */}
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "linear-gradient(125deg, #000000, #0a0a2a, #1a0a2a, #000000)",
+        backgroundSize: "400% 400%",
+        animation: "gradientShift 12s ease infinite",
+        zIndex: 0,
+      }} />
+      
+      {/* Dark overlay for better text contrast */}
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "rgba(0,0,0,0.4)",
+        zIndex: 1,
+      }} />
+      
+      {/* Ambient glow */}
+      <div style={{
+        position: "absolute",
+        width: "80%",
+        height: "60%",
+        background: "radial-gradient(ellipse at center, rgba(120,80,255,0.15), transparent 70%)",
+        filter: "blur(120px)",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        zIndex: 2,
+      }} />
+      
+      <div className="container" style={{ textAlign: "center", position: "relative", zIndex: 3 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          style={{
-            fontSize: "64px",
-            fontWeight: "600",
-            letterSpacing: "-1px",
-            background:
-              "linear-gradient(to bottom, #ffffff, #dbeafe)",
+          transition={{ duration: 0.8 }}
+        >
+          <span style={{
+            fontSize: "14px",
+            letterSpacing: "4px",
+            color: "#7850ff",
+            textTransform: "uppercase",
+            display: "block",
+            marginBottom: "20px"
+          }}>Precision Pharmaceuticals</span>
+          
+          <h1 style={{
+            background: "linear-gradient(to bottom, #ffffff, #dbeafe)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            textShadow: "0 0 30px rgba(255,255,255,0.15)",
-          }}
-        >
-          Will. For Life.
-        </motion.h1>
-
-        {/* SUBTEXT */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          style={{
-            marginTop: "20px",
-            color: "#94a3b8",
-            fontSize: "18px",
-          }}
-        >
-          Because better healthcare begins with the will to care.
-        </motion.p>
-
-        {/* BUTTONS */}
-        <div
-          style={{
-            marginTop: "40px",
-            display: "flex",
-            gap: "20px",
-            justifyContent: "center",
-          }}
-        >
-          {/* PURPLE BUTTON */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            style={{
-              padding: "14px 32px",
-              borderRadius: "999px",
-              border: "1px solid rgba(255,255,255,0.1)",
-              background:
-                "linear-gradient(90deg, rgba(120,80,255,0.3), rgba(255,255,255,0.05))",
-              color: "#fff",
-              backdropFilter: "blur(20px)",
-              boxShadow: "0 0 40px rgba(120,80,255,0.5)",
-              cursor: "pointer",
-              transition: "0.3s",
-            }}
-            onClick={() => {
-              document
-                .getElementById("next-section")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            Explore Products
-          </motion.button>
-
-          {/* BLUE BUTTON */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            style={{
-              padding: "14px 32px",
-              borderRadius: "999px",
-              border: "1px solid rgba(255,255,255,0.1)",
-              background:
-                "linear-gradient(90deg, rgba(0,120,255,0.3), rgba(255,255,255,0.05))",
-              color: "#fff",
-              backdropFilter: "blur(20px)",
-              boxShadow: "0 0 40px rgba(0,120,255,0.5)",
-              cursor: "pointer",
-              transition: "0.3s",
-            }}
-          >
-            View Range
-          </motion.button>
-        </div>
+            marginBottom: "20px",
+            fontSize: "clamp(48px, 10vw, 80px)"
+          }}>
+            Will. For Life.
+          </h1>
+          
+          <p style={{ color: "#9ca3af", fontSize: "clamp(16px, 4vw, 20px)", maxWidth: "600px", margin: "0 auto" }}>
+            Because better healthcare begins with the will to care.
+          </p>
+          
+          <div style={{ display: "flex", gap: "16px", justifyContent: "center", marginTop: "40px", flexWrap: "wrap" }}>
+            <button className="btn btn-primary" onClick={() => document.getElementById("cardiac")?.scrollIntoView({ behavior: "smooth" })}>
+              Explore Ecosystem →
+            </button>
+            <button className="btn btn-secondary">
+              Watch Film
+            </button>
+          </div>
+        </motion.div>
       </div>
+      
+      {/* Scroll Indicator - "Will for Life" */}
+      <motion.div
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        style={{ 
+          position: "absolute", 
+          bottom: "30px", 
+          left: "50%", 
+          transform: "translateX(-50%)", 
+          cursor: "pointer", 
+          zIndex: 3 
+        }}
+        onClick={() => document.getElementById("cardiac")?.scrollIntoView({ behavior: "smooth" })}
+      >
+        <div style={{ 
+          width: "28px", 
+          height: "45px", 
+          border: "1.5px solid rgba(255,255,255,0.25)", 
+          borderRadius: "24px", 
+          position: "relative",
+          backdropFilter: "blur(4px)"
+        }}>
+          <motion.div 
+            animate={{ y: [0, 15, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            style={{ 
+              width: "4px", 
+              height: "10px", 
+              background: "#fff", 
+              borderRadius: "2px", 
+              position: "absolute", 
+              top: "8px", 
+              left: "50%", 
+              transform: "translateX(-50%)" 
+            }} 
+          />
+        </div>
+        <p style={{ 
+          fontSize: "10px", 
+          color: "#6b7280", 
+          marginTop: "8px", 
+          letterSpacing: "2px",
+          textTransform: "uppercase"
+        }}>
+          Scroll
+        </p>
+      </motion.div>
     </section>
   );
 }
