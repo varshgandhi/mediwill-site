@@ -1,6 +1,7 @@
 // components/Hero.js
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -40,7 +41,7 @@ export default function Hero() {
       {/* Ambient glow */}
       <div style={{
         position: "absolute",
-        width: "80%",
+        width: "60%",
         height: "60%",
         background: "radial-gradient(ellipse at center, rgba(120,80,255,0.15), transparent 70%)",
         filter: "blur(120px)",
@@ -50,7 +51,7 @@ export default function Hero() {
         zIndex: 2,
       }} />
       
-      <div className="container" style={{ textAlign: "center", position: "relative", zIndex: 3 }}>
+      <div className="container" style={{ textAlign: "center", position: "relative", zIndex: 10 }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -80,17 +81,23 @@ export default function Hero() {
           </p>
           
           <div style={{ display: "flex", gap: "16px", justifyContent: "center", marginTop: "40px", flexWrap: "wrap" }}>
-            <button className="btn btn-primary" onClick={() => document.getElementById("cardiac")?.scrollIntoView({ behavior: "smooth" })}>
+            <button 
+              className="btn btn-primary" 
+              onClick={() => document.getElementById("cardiac")?.scrollIntoView({ behavior: "smooth" })}
+            >
               Explore Ecosystem →
             </button>
-            <button className="btn btn-secondary">
-              Watch Film
-            </button>
+            
+            <Link href="/about">
+              <button className="btn btn-secondary">
+                About Us →
+              </button>
+            </Link>
           </div>
         </motion.div>
       </div>
       
-      {/* Scroll Indicator - "Will for Life" */}
+      {/* Scroll indicator */}
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
@@ -100,7 +107,7 @@ export default function Hero() {
           left: "50%", 
           transform: "translateX(-50%)", 
           cursor: "pointer", 
-          zIndex: 3 
+          zIndex: 10 
         }}
         onClick={() => document.getElementById("cardiac")?.scrollIntoView({ behavior: "smooth" })}
       >
@@ -137,6 +144,26 @@ export default function Hero() {
           Scroll
         </p>
       </motion.div>
+
+      <style jsx>{`
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          25% {
+            background-position: 50% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          75% {
+            background-position: 50% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
     </section>
   );
 }

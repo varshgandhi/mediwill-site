@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TrustBadges from "@/components/TrustBadges";
 import ProductSection from "@/components/ProductSection";
-import PartnerStrip from "@/components/PartnerStrip";
 import Marquee from "@/components/Marquee";
+import Link from "next/link";  // ← ADD THIS IMPORT
 
 export default function Home() {
   return (
@@ -14,7 +14,6 @@ export default function Home() {
       <Hero />
       <Marquee />
       <TrustBadges />
-      <PartnerStrip />
       
       <ProductSection 
         id="cardiac" 
@@ -52,7 +51,7 @@ export default function Home() {
         imageAlt="Women's health" 
       />
       
-      {/* Contact Section */}
+      {/* Contact Section - FIXED BUTTON */}
       <section id="contact" style={{
         minHeight: "60vh",
         background: "#000",
@@ -68,9 +67,11 @@ export default function Home() {
         <p style={{ color: "#9ca3af", textAlign: "center", maxWidth: "500px", marginBottom: "40px" }}>
           Ready to transform healthcare together? Reach out to our team.
         </p>
-        <button className="btn btn-primary" style={{ padding: "14px 40px" }}>
-          Contact Us →
-        </button>
+        <Link href="/contact">
+          <button className="btn btn-primary" style={{ padding: "14px 40px", cursor: "pointer" }}>
+            Contact Us →
+          </button>
+        </Link>
       </section>
     </main>
   );

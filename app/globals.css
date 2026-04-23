@@ -66,6 +66,10 @@ body {
   background: rgba(255, 255, 255, 0.1);
   transform: scale(1.02);
 }
+.btn-secondary:hover {
+  background: linear-gradient(90deg, rgba(120, 80, 255, 0.3), rgba(255, 255, 255, 0.05));
+  box-shadow: 0 0 20px rgba(120, 80, 255, 0.3);
+}
 
 /* Typography scale */
 h1 {
