@@ -1,31 +1,13 @@
 // app/layout.js
 "use client";
-import "./globals.css";
-import PageLoader from "@/components/PageLoader";
-import { useState, useEffect } from "react";
+import SimpleLoader from "@/components/SimpleLoader";
 
 export default function RootLayout({ children }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
+  // FORCE LOADER TO ALWAYS SHOW
   return (
     <html lang="en">
-      <body
-        style={{
-          margin: 0,
-          background: "#000",
-          scrollBehavior: "smooth",
-        }}
-      >
-        <PageLoader />
-        {children}
+      <body style={{ margin: 0 }}>
+        <SimpleLoader />
       </body>
     </html>
   );

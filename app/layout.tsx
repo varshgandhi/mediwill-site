@@ -13,10 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mediwill Life Sciences | Pharma Company",
+  title: "Mediwill Life Sciences | Pharmaceutical Company in India | Cardiac, Diabetes & Anti-Infective Medicines",
   description:
-    "Mediwill Life Sciences is a pharmaceutical company specializing in cardiac, diabetes, orthopedic and anti-infective healthcare solutions.",
-  
+  "Mediwill Life Sciences is an Indian pharmaceutical company providing high-quality cardiac, diabetes, orthopedic, and anti-infective medicines. Precision healthcare with innovation and trust.",  
   keywords: [
     "Mediwill",
     "Pharma company India",
@@ -37,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
   },
 
-  metadataBase: new URL("https://www.mediwill.in"),
+  metadataBase: new URL("https://mediwill.in"),
 };
 
 export default function RootLayout({

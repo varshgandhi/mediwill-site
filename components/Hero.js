@@ -2,7 +2,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-
+import Molecule3D from "@/components/Molecule3D";
 export default function Hero() {
   return (
     <section className="hero-section" style={{
@@ -39,6 +39,7 @@ export default function Hero() {
       }} />
       
       {/* Ambient glow */}
+      
       <div style={{
         position: "absolute",
         width: "60%",

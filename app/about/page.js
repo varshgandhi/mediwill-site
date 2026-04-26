@@ -1,125 +1,222 @@
-// app/about/page.js
 "use client";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
+
+function Counter({ target }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+
+    let start = 0;
+    const end = parseInt(target.replace("+", ""));
+    const duration = 1200;
+    const step = end / (duration / 16);
+
+    const interval = setInterval(() => {
+      start += step;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(interval);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(interval);
+  }, [inView]);
+
+  return <span ref={ref}>{count}{target.includes("+") && "+"}</span>;
+}
 
 export default function AboutPage() {
   return (
-    <main style={{ background: "#000", minHeight: "100vh" }}>
-      {/* Simple Back Button */}
+    <main style={{ background: "#000", color: "white" }}>
+
+      {/* BACK */}
       <div style={{ padding: "30px 8% 0" }}>
-        <Link href="/" style={{ color: "#9ca3af", textDecoration: "none", fontSize: "14px" }}>
-          ← Back to Home
-        </Link>
+        <Link href="/" style={{ color: "#9ca3af" }}>← Back</Link>
       </div>
 
-      {/* Hero Section */}
-      <section style={{ padding: "60px 8% 40px" }}>
+      {/* HERO */}
+      <section style={{ padding: "100px 8% 80px", position: "relative" }}>
+        <div className="hero-glow" />
+
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
-          <span style={{ color: "#7850ff", fontSize: "14px", letterSpacing: "3px" }}>OUR STORY</span>
-          <h1 style={{ fontSize: "56px", marginTop: "20px", marginBottom: "20px", fontWeight: "600" }}>
-            Will. For Life.
-          </h1>
-          <p style={{ color: "#9ca3af", fontSize: "18px", maxWidth: "700px", lineHeight: "1.6" }}>
-            Mediwill is built on a simple belief: better healthcare begins with the will to care. 
-            We are a pharmaceutical company dedicated to precision, quality, and patient-first innovation.
+          <span className="tag">MEDIWILL</span>
+
+          <h1 className="title">Will. For Life.</h1>
+
+          <p className="desc">
+            Mediwill represents a commitment to precision healthcare.
+            We build pharmaceutical solutions that balance science,
+            quality, and patient outcomes — across critical therapeutic areas.
           </p>
         </motion.div>
       </section>
 
-      {/* Mission & Vision Cards */}
-      <section style={{ padding: "60px 8%", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "40px" }}>
+      {/* TRUST STRIP */}
+      <section className="trust">
+        {[
+          "GMP Manufacturing",
+          "Evidence-Based Formulations",
+          "Regulatory Compliance",
+          "Patient-Centric Design"
+        ].map((t) => (
+          <div key={t}>{t}</div>
+        ))}
+      </section>
+
+      {/* MISSION / VISION */}
+      <section className="grid">
+        {[
+          {
+            title: "Mission",
+            text: "Deliver precision pharmaceutical solutions that improve clinical outcomes."
+          },
+          {
+            title: "Vision",
+            text: "Build a trusted healthcare brand driven by innovation and responsibility."
+          }
+        ].map((item, i) => (
+          <motion.div
+            key={i}
+            className="card"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2>{item.title}</h2>
+            <p>{item.text}</p>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* LEADERSHIP / TRUST */}
+      <section className="leadership">
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          style={{ padding: "40px", background: "rgba(255,255,255,0.03)", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.05)" }}
         >
-          <div style={{ fontSize: "48px", marginBottom: "20px" }}>🎯</div>
-          <h2 style={{ fontSize: "28px", marginBottom: "15px" }}>Our Mission</h2>
-          <p style={{ color: "#9ca3af", lineHeight: "1.6" }}>
-            To develop and deliver precision pharmaceuticals that improve patient outcomes 
-            across cardiac, orthopedic, anti-infective, and gynecology therapeutic areas.
+          <h2>Built on Expertise</h2>
+          <p>
+            Mediwill is guided by professionals with deep experience in
+            pharmaceutical development, regulatory standards, and clinical excellence.
           </p>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          style={{ padding: "40px", background: "rgba(255,255,255,0.03)", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.05)" }}
-        >
-          <div style={{ fontSize: "48px", marginBottom: "20px" }}>👁️</div>
-          <h2 style={{ fontSize: "28px", marginBottom: "15px" }}>Our Vision</h2>
-          <p style={{ color: "#9ca3af", lineHeight: "1.6" }}>
-            To be the most trusted pharmaceutical partner in India, known for innovation, 
-            quality, and an unwavering commitment to patient health.
-          </p>
-        </motion.div>
       </section>
 
-      {/* Core Values */}
-      <section style={{ padding: "60px 8%", textAlign: "center", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <span style={{ color: "#7850ff", fontSize: "12px", letterSpacing: "3px" }}>WHAT WE BELIEVE</span>
-          <h2 style={{ fontSize: "36px", marginTop: "20px", marginBottom: "50px" }}>Our Core Values</h2>
-        </motion.div>
-        
-        <div style={{ display: "flex", justifyContent: "center", gap: "50px", flexWrap: "wrap" }}>
-          {[
-            { title: "Quality First", desc: "Uncompromising GMP standards", icon: "🔬" },
-            { title: "Patient-Centric", desc: "Every decision starts with patients", icon: "❤️" },
-            { title: "Scientific Integrity", desc: "Evidence-based approach", icon: "📊" },
-            { title: "Partnership", desc: "Building lasting relationships", icon: "🤝" }
-          ].map((value, idx) => (
-            <motion.div
-              key={value.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              viewport={{ once: true }}
-              style={{ textAlign: "center", minWidth: "160px" }}
-            >
-              <div style={{ fontSize: "40px", marginBottom: "15px" }}>{value.icon}</div>
-              <h3 style={{ fontSize: "18px", marginBottom: "8px" }}>{value.title}</h3>
-              <p style={{ fontSize: "13px", color: "#6b7280" }}>{value.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+      {/* STATS */}
+      <section className="stats">
+        {[
+          { value: "100+", label: "Formulations" },
+          { value: "4", label: "Therapeutic Areas" },
+          { value: "GMP", label: "Quality Standard" }
+        ].map((s, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <div className="stat-value">
+              {s.value === "GMP" ? s.value : <Counter target={s.value} />}
+            </div>
+            <div className="stat-label">{s.label}</div>
+          </motion.div>
+        ))}
       </section>
 
-      {/* Stats */}
-      <section style={{ padding: "80px 8%", textAlign: "center" }}>
-        <div style={{ display: "flex", justifyContent: "center", gap: "80px", flexWrap: "wrap" }}>
-          {[
-            { value: "100+", label: "Products" },
-            { value: "4", label: "Therapeutic Areas" },
-            { value: "GMP", label: "Quality Certified" }
-          ].map((stat, idx) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: idx * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div style={{ fontSize: "52px", fontWeight: "700", color: "#7850ff" }}>{stat.value}</div>
-              <div style={{ fontSize: "14px", color: "#9ca3af", marginTop: "8px" }}>{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      <style jsx>{`
+        .hero-glow {
+          position: absolute;
+          width: 600px;
+          height: 600px;
+          background: radial-gradient(circle, rgba(120,80,255,0.2), transparent);
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          filter: blur(120px);
+        }
+
+        .tag {
+          color: #7850ff;
+          letter-spacing: 3px;
+          font-size: 12px;
+        }
+
+        .title {
+          font-size: 64px;
+          margin: 20px 0;
+        }
+
+        .desc {
+          max-width: 700px;
+          color: #9ca3af;
+          font-size: 18px;
+        }
+
+        .trust {
+          display: flex;
+          justify-content: space-between;
+          padding: 40px 8%;
+          border-top: 1px solid rgba(255,255,255,0.05);
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          color: #9ca3af;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+          gap: 40px;
+          padding: 80px 8%;
+        }
+
+        .card {
+          padding: 40px;
+          background: rgba(255,255,255,0.03);
+          border-radius: 20px;
+        }
+
+        .leadership {
+          padding: 100px 8%;
+          text-align: center;
+        }
+
+        .stats {
+          display: flex;
+          justify-content: center;
+          gap: 80px;
+          padding: 100px 8%;
+          flex-wrap: wrap;
+        }
+
+        .stat-value {
+          font-size: 56px;
+          color: #7850ff;
+        }
+
+        .stat-label {
+          color: #9ca3af;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+          .title {
+            font-size: 40px;
+          }
+        }
+      `}</style>
     </main>
   );
 }
