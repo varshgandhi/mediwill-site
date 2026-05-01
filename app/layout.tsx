@@ -13,11 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mediwill Life Sciences | Pharmaceutical Company in India | Cardiac, Diabetes & Anti-Infective Medicines",
+  title: "Mediwill Life Sciences | Pharmaceutical Company in India",
   description:
-  "Mediwill Life Sciences is an Indian pharmaceutical company providing high-quality cardiac, diabetes, orthopedic, and anti-infective medicines. Precision healthcare with innovation and trust.",  
+    "Mediwill Life Sciences is an Indian pharmaceutical company specializing in cardiac, diabetes, orthopedic, and anti-infective medicines.",
+
   keywords: [
-    "Mediwill",
+    "Mediwill Life Sciences",
     "Pharma company India",
     "Cardiac medicines",
     "Diabetes medicines",
@@ -27,16 +28,40 @@ export const metadata: Metadata = {
 
   authors: [{ name: "Mediwill Life Sciences" }],
 
+  metadataBase: new URL("https://www.mediwill.in"),
+
+  alternates: {
+    canonical: "https://www.mediwill.in",
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+  },
+
   openGraph: {
     title: "Mediwill Life Sciences",
     description:
-      "Precision healthcare solutions across cardiac, diabetes and more.",
+      "Precision healthcare across cardiac, diabetes, and orthopedic care.",
     url: "https://www.mediwill.in",
     siteName: "Mediwill Life Sciences",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_IN",
     type: "website",
   },
 
-  metadataBase: new URL("https://mediwill.in"),
+  twitter: {
+    card: "summary_large_image",
+    title: "Mediwill Life Sciences",
+    description:
+      "Precision healthcare solutions across cardiac, diabetes, and orthopedic care.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
@@ -49,6 +74,26 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        {/* Structured Data (VERY IMPORTANT for Google branding) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Mediwill Life Sciences",
+              url: "https://www.mediwill.in",
+              logo: "https://www.mediwill.in/logo.png",
+              sameAs: [
+                "https://www.instagram.com/",
+                "https://www.linkedin.com/",
+              ],
+            }),
+          }}
+        />
+      </head>
+
       <body className="min-h-full flex flex-col bg-black text-white">
         {children}
       </body>
